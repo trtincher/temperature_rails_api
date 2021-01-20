@@ -1,0 +1,1134 @@
+  [1m[35m (371.2ms)[0m  [1m[35mCREATE DATABASE "temp_app_api_development" ENCODING = 'unicode'[0m
+  [1m[35m (204.2ms)[0m  [1m[35mCREATE DATABASE "temp_app_api_test" ENCODING = 'unicode'[0m
+  [1m[35m (36.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (10.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (2.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8083472298952943655)[0m
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateLocations (20210115223227)
+  [1m[35m (4.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (22.8ms)[0m  [1m[35mCREATE TABLE "locations" ("id" bigserial primary key, "lat" decimal, "lng" decimal, "name" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (1.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210115223227"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateTemperatures (20210115223754)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (7.5ms)[0m  [1m[35mCREATE TABLE "temperatures" ("id" bigserial primary key, "average_high_f" integer, "average_low_f" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210115223754"]]
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddForeignKeyToTemperatures (20210115223938)
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "temperatures" ADD "location_id" integer[0m
+  [1m[36mprimary::SchemaMigration Create (1.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210115223938"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (2.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-01-15 22:40:19.185751"], ["updated_at", "2021-01-15 22:40:19.185751"]]
+  [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_advisory_unlock(8083472298952943655)[0m
+  [1m[35m (4.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Create (10.0ms)[0m  [1m[32mINSERT INTO "locations" ("lat", "lng", "name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["lat", "40.7128"], ["lng", "74.0059"], ["name", "New York City"], ["created_at", "2021-01-15 22:44:05.281639"], ["updated_at", "2021-01-15 22:44:05.281639"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Create (0.7ms)[0m  [1m[32mINSERT INTO "locations" ("lat", "lng", "name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["lat", "78.2232"], ["lng", "15.6267"], ["name", "LongYearByen"], ["created_at", "2021-01-15 22:44:05.297215"], ["updated_at", "2021-01-15 22:44:05.297215"]]
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Load (0.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTemperature Create (2.1ms)[0m  [1m[32mINSERT INTO "temperatures" ("average_high_f", "average_low_f", "created_at", "updated_at", "location_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["average_high_f", 39], ["average_low_f", 26], ["created_at", "2021-01-15 22:44:05.349093"], ["updated_at", "2021-01-15 22:44:05.349093"], ["location_id", 1]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Load (0.3ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTemperature Create (0.4ms)[0m  [1m[32mINSERT INTO "temperatures" ("average_high_f", "average_low_f", "created_at", "updated_at", "location_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["average_high_f", 50], ["average_low_f", 40], ["created_at", "2021-01-15 22:44:05.358499"], ["updated_at", "2021-01-15 22:44:05.358499"], ["location_id", 1]]
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Load (0.4ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTemperature Create (0.6ms)[0m  [1m[32mINSERT INTO "temperatures" ("average_high_f", "average_low_f", "created_at", "updated_at", "location_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["average_high_f", 80], ["average_low_f", 35], ["created_at", "2021-01-15 22:44:05.368418"], ["updated_at", "2021-01-15 22:44:05.368418"], ["location_id", 1]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Load (0.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTemperature Create (0.5ms)[0m  [1m[32mINSERT INTO "temperatures" ("average_high_f", "average_low_f", "created_at", "updated_at", "location_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["average_high_f", 60], ["average_low_f", 44], ["created_at", "2021-01-15 22:44:05.383043"], ["updated_at", "2021-01-15 22:44:05.383043"], ["location_id", 1]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Load (0.4ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTemperature Create (0.5ms)[0m  [1m[32mINSERT INTO "temperatures" ("average_high_f", "average_low_f", "created_at", "updated_at", "location_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["average_high_f", 71], ["average_low_f", 55], ["created_at", "2021-01-15 22:44:05.397755"], ["updated_at", "2021-01-15 22:44:05.397755"], ["location_id", 1]]
+  [1m[35m (2.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Load (0.4ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTemperature Create (0.5ms)[0m  [1m[32mINSERT INTO "temperatures" ("average_high_f", "average_low_f", "created_at", "updated_at", "location_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["average_high_f", 90], ["average_low_f", 55], ["created_at", "2021-01-15 22:44:05.412848"], ["updated_at", "2021-01-15 22:44:05.412848"], ["location_id", 1]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Load (0.4ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTemperature Create (0.7ms)[0m  [1m[32mINSERT INTO "temperatures" ("average_high_f", "average_low_f", "created_at", "updated_at", "location_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["average_high_f", 30], ["average_low_f", 55], ["created_at", "2021-01-15 22:44:05.426564"], ["updated_at", "2021-01-15 22:44:05.426564"], ["location_id", 1]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Load (0.3ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mTemperature Create (0.7ms)[0m  [1m[32mINSERT INTO "temperatures" ("average_high_f", "average_low_f", "created_at", "updated_at", "location_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["average_high_f", 1], ["average_low_f", -20], ["created_at", "2021-01-15 22:44:05.443036"], ["updated_at", "2021-01-15 22:44:05.443036"], ["location_id", 2]]
+  [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for ::1 at 2021-01-15 16:51:36 -0600
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Library/Ruby/Gems/2.6.0/gems/railties-6.0.3.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Library/Ruby/Gems/2.6.0/gems/railties-6.0.3.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 19.9ms | Allocations: 478)
+Completed 200 OK in 60ms (Views: 39.1ms | ActiveRecord: 0.0ms | Allocations: 2616)
+
+
+Started GET "/locations" for ::1 at 2021-01-15 16:51:57 -0600
+Processing by LocationsController#index as HTML
+  [1m[36mLocation Load (1.0ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 66ms (Views: 27.8ms | ActiveRecord: 21.5ms | Allocations: 6645)
+
+
+Started GET "/temperatures" for ::1 at 2021-01-15 16:52:06 -0600
+Processing by TemperaturesController#index as HTML
+  [1m[36mTemperature Load (1.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures"[0m
+  ↳ app/controllers/temperatures_controller.rb:8:in `index'
+Completed 200 OK in 86ms (Views: 53.1ms | ActiveRecord: 21.2ms | Allocations: 6468)
+
+
+  [1m[36mLocation Load (1.0ms)[0m  [1m[34mSELECT "locations".* FROM "locations" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mLocation Load (0.8ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1 LIMIT $2[0m  [["location_id", 1], ["LIMIT", 11]]
+  [1m[36mLocation Load (1.5ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTemperature Load (35.0ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+Started GET "/temperatures" for ::1 at 2021-01-17 10:25:42 -0600
+Processing by TemperaturesController#index as HTML
+  [1m[36mTemperature Load (9.2ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures"[0m
+  ↳ app/controllers/temperatures_controller.rb:8:in `index'
+Completed 200 OK in 81ms (Views: 60.6ms | ActiveRecord: 9.2ms | Allocations: 6046)
+
+
+Started GET "/locations" for ::1 at 2021-01-17 10:25:50 -0600
+Processing by LocationsController#index as HTML
+  [1m[36mLocation Load (4.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 69ms (Views: 54.2ms | ActiveRecord: 4.6ms | Allocations: 5477)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-17 10:25:57 -0600
+Processing by LocationsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (3.5ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:44:in `set_location'
+Completed 200 OK in 21ms (Views: 1.0ms | ActiveRecord: 4.4ms | Allocations: 1213)
+
+
+Started GET "/locations/2" for ::1 at 2021-01-17 10:26:03 -0600
+Processing by LocationsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mLocation Load (1.1ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:44:in `set_location'
+Completed 200 OK in 4ms (Views: 0.7ms | ActiveRecord: 1.1ms | Allocations: 782)
+
+
+Started GET "/" for ::1 at 2021-01-17 10:26:42 -0600
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Library/Ruby/Gems/2.6.0/gems/railties-6.0.3.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Library/Ruby/Gems/2.6.0/gems/railties-6.0.3.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 44.2ms | Allocations: 196)
+Completed 200 OK in 56ms (Views: 48.8ms | ActiveRecord: 0.0ms | Allocations: 731)
+
+
+Started GET "/temperatures" for ::1 at 2021-01-17 10:26:49 -0600
+Processing by TemperaturesController#index as HTML
+  [1m[36mTemperature Load (5.0ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures"[0m
+  ↳ app/controllers/temperatures_controller.rb:8:in `index'
+Completed 200 OK in 10ms (Views: 5.0ms | ActiveRecord: 5.0ms | Allocations: 1708)
+
+
+Started GET "/temperatures/39" for ::1 at 2021-01-17 10:26:57 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/temperatures/39"):
+  
+actionpack (6.0.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.4) lib/rails/engine.rb:527:in `call'
+puma (4.3.7) lib/puma/configuration.rb:228:in `call'
+puma (4.3.7) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.7) lib/puma/server.rb:472:in `process_client'
+puma (4.3.7) lib/puma/server.rb:328:in `block in run'
+puma (4.3.7) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/temperatures/39" for ::1 at 2021-01-17 10:30:15 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/temperatures/39"):
+  
+actionpack (6.0.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.4) lib/rails/engine.rb:527:in `call'
+puma (4.3.7) lib/puma/configuration.rb:228:in `call'
+puma (4.3.7) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.7) lib/puma/server.rb:472:in `process_client'
+puma (4.3.7) lib/puma/server.rb:328:in `block in run'
+puma (4.3.7) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/locations/1" for ::1 at 2021-01-17 10:30:47 -0600
+Processing by LocationsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (0.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 225ms (Views: 66.0ms | ActiveRecord: 95.7ms | Allocations: 13825)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-17 10:32:37 -0600
+Processing by LocationsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (0.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (1.3ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 69ms (Views: 0.1ms | ActiveRecord: 23.5ms | Allocations: 11753)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-17 10:35:25 -0600
+Processing by LocationsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (0.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 179ms (Views: 0.2ms | ActiveRecord: 68.8ms | Allocations: 11754)
+
+
+Started GET "/locations" for ::1 at 2021-01-17 10:36:12 -0600
+Processing by LocationsController#index as HTML
+  [1m[36mLocation Load (1.0ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.9ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 205ms (Views: 0.1ms | ActiveRecord: 26.2ms | Allocations: 12806)
+
+
+Started POST "/locations/2/temeratures?temperature[average_high_f]=100&temperature[average_low_f]=0" for ::1 at 2021-01-17 11:50:46 -0600
+  
+ActionController::RoutingError (No route matches [POST] "/locations/2/temeratures"):
+  
+actionpack (6.0.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.4) lib/rails/engine.rb:527:in `call'
+puma (4.3.7) lib/puma/configuration.rb:228:in `call'
+puma (4.3.7) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.7) lib/puma/server.rb:472:in `process_client'
+puma (4.3.7) lib/puma/server.rb:328:in `block in run'
+puma (4.3.7) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started POST "/locations/2/temeratures" for ::1 at 2021-01-17 11:51:04 -0600
+  
+ActionController::RoutingError (No route matches [POST] "/locations/2/temeratures"):
+  
+actionpack (6.0.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.4) lib/rails/engine.rb:527:in `call'
+puma (4.3.7) lib/puma/configuration.rb:228:in `call'
+puma (4.3.7) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.7) lib/puma/server.rb:472:in `process_client'
+puma (4.3.7) lib/puma/server.rb:328:in `block in run'
+puma (4.3.7) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started POST "/locations/2/temperatures" for ::1 at 2021-01-17 11:51:10 -0600
+Processing by TemperaturesController#create as */*
+  Parameters: {"temperature"=>{"average_high_f"=>"100", "average_low_f"=>"0"}, "location_id"=>"2"}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/temperatures_controller.rb:20:in `create'
+  [1m[36mLocation Load (2.3ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/temperatures_controller.rb:20:in `create'
+  [1m[36mTemperature Create (12.1ms)[0m  [1m[32mINSERT INTO "temperatures" ("average_high_f", "average_low_f", "created_at", "updated_at", "location_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["average_high_f", 100], ["average_low_f", 0], ["created_at", "2021-01-17 17:51:10.196920"], ["updated_at", "2021-01-17 17:51:10.196920"], ["location_id", 2]]
+  ↳ app/controllers/temperatures_controller.rb:20:in `create'
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/temperatures_controller.rb:20:in `create'
+Completed 201 Created in 98ms (Views: 2.0ms | ActiveRecord: 17.1ms | Allocations: 12823)
+
+
+Started GET "/locations/2" for ::1 at 2021-01-17 11:52:04 -0600
+Processing by LocationsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mLocation Load (0.4ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (3.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 11ms (Views: 0.3ms | ActiveRecord: 3.9ms | Allocations: 2201)
+
+
+Started GET "/temperatures" for ::1 at 2021-01-17 11:52:34 -0600
+Processing by TemperaturesController#index as HTML
+  [1m[36mTemperature Load (0.8ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures"[0m
+  ↳ app/controllers/temperatures_controller.rb:7:in `index'
+Completed 200 OK in 7ms (Views: 6.1ms | ActiveRecord: 0.8ms | Allocations: 1810)
+
+
+Started GET "/" for ::1 at 2021-01-18 14:21:25 -0600
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Library/Ruby/Gems/2.6.0/gems/railties-6.0.3.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Library/Ruby/Gems/2.6.0/gems/railties-6.0.3.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 2.3ms | Allocations: 7)
+Completed 200 OK in 7ms (Views: 5.4ms | ActiveRecord: 0.0ms | Allocations: 238)
+
+
+Started GET "/" for ::1 at 2021-01-18 15:15:55 -0600
+  [1m[35m (3.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Library/Ruby/Gems/2.6.0/gems/railties-6.0.3.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Library/Ruby/Gems/2.6.0/gems/railties-6.0.3.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 233.5ms | Allocations: 316)
+Completed 200 OK in 278ms (Views: 259.9ms | ActiveRecord: 0.0ms | Allocations: 1595)
+
+
+Started GET "/locations/2" for ::1 at 2021-01-18 15:16:03 -0600
+Processing by LocationsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mLocation Load (1.4ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (1.2ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 170ms (Views: 0.5ms | ActiveRecord: 31.6ms | Allocations: 14523)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 15:16:08 -0600
+Processing by LocationsController#index as HTML
+  [1m[36mLocation Load (0.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.6ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 37ms (Views: 0.2ms | ActiveRecord: 1.7ms | Allocations: 3716)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 15:26:03 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (2.5ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.7ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 47ms (Views: 0.8ms | ActiveRecord: 4.0ms | Allocations: 3828)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-18 15:29:16 -0600
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by LocationsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (1.1ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 169ms (Views: 0.3ms | ActiveRecord: 37.3ms | Allocations: 15090)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-18 15:29:21 -0600
+Processing by LocationsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (0.5ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.7ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 1.2ms | Allocations: 2403)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-18 15:30:05 -0600
+Processing by LocationsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (0.8ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.7ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 1.5ms | Allocations: 2403)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 15:32:45 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (2.7ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.9ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 35ms (Views: 0.2ms | ActiveRecord: 4.1ms | Allocations: 3716)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 15:33:43 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (0.9ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (1.8ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 12ms (Views: 0.1ms | ActiveRecord: 3.1ms | Allocations: 3696)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 15:39:19 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (1.8ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (2.2ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (2.1ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 47ms (Views: 0.5ms | ActiveRecord: 7.8ms | Allocations: 3831)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-18 15:45:09 -0600
+Processing by LocationsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (2.8ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (1.0ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 160ms (Views: 0.4ms | ActiveRecord: 3.8ms | Allocations: 2394)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-18 15:45:22 -0600
+Processing by LocationsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (0.9ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.8ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 1.7ms | Allocations: 2386)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-18 15:48:05 -0600
+Processing by LocationsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (0.5ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 1.0ms | Allocations: 2386)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-18 15:48:38 -0600
+Processing by LocationsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (0.9ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.6ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 1.5ms | Allocations: 2386)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-18 15:49:02 -0600
+Processing by LocationsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (0.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.3ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 0.9ms | Allocations: 2386)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-18 15:52:08 -0600
+Processing by LocationsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (1.0ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 25ms (Views: 0.3ms | ActiveRecord: 1.4ms | Allocations: 2386)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-18 15:53:14 -0600
+Processing by LocationsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (0.7ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 1.2ms | Allocations: 2386)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-18 15:53:45 -0600
+Processing by LocationsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (0.4ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 0.8ms | Allocations: 2386)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-18 15:56:03 -0600
+Processing by LocationsController#show as */*
+  Parameters: {"id"=>"1"}
+Started GET "/locations" for ::1 at 2021-01-18 15:56:03 -0600
+  [1m[36mLocation Load (6.9ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (2.7ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 20ms (Views: 0.2ms | ActiveRecord: 9.6ms | Allocations: 2849)
+
+
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (2.2ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (3.3ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (3.1ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 26ms (Views: 0.4ms | ActiveRecord: 9.3ms | Allocations: 3816)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-18 15:56:14 -0600
+Started GET "/locations" for ::1 at 2021-01-18 15:56:14 -0600
+Processing by LocationsController#index as */*
+Processing by LocationsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (0.4ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.8ms | Allocations: 2389)
+
+
+  [1m[36mLocation Load (10.4ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (1.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.3ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 20ms (Views: 0.1ms | ActiveRecord: 12.1ms | Allocations: 6337)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 15:58:29 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (1.3ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (1.0ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 17ms (Views: 0.1ms | ActiveRecord: 2.7ms | Allocations: 3695)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 15:59:48 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (0.5ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 11ms (Views: 0.1ms | ActiveRecord: 1.4ms | Allocations: 3698)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 16:00:19 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (0.5ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.2ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.2ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 9ms (Views: 0.2ms | ActiveRecord: 1.0ms | Allocations: 3695)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 16:00:41 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (0.7ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.8ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 16ms (Views: 0.2ms | ActiveRecord: 2.1ms | Allocations: 3695)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 16:01:42 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (0.7ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.6ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 16ms (Views: 0.3ms | ActiveRecord: 1.8ms | Allocations: 3695)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 16:01:43 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (0.7ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 15ms (Views: 0.2ms | ActiveRecord: 1.6ms | Allocations: 3695)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 16:04:01 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (0.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (1.9ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 16ms (Views: 0.2ms | ActiveRecord: 3.0ms | Allocations: 3695)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 16:04:04 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (2.4ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 15ms (Views: 0.2ms | ActiveRecord: 3.3ms | Allocations: 3695)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 16:19:56 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (1.7ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (1.1ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 54ms (Views: 0.5ms | ActiveRecord: 3.6ms | Allocations: 12667)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 16:20:33 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (0.5ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.7ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 13ms (Views: 0.1ms | ActiveRecord: 1.8ms | Allocations: 3695)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 16:22:42 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (0.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.6ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.7ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 16ms (Views: 0.1ms | ActiveRecord: 1.9ms | Allocations: 3695)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 16:23:13 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (1.2ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.3ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 16ms (Views: 0.2ms | ActiveRecord: 2.0ms | Allocations: 3695)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 16:24:53 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (0.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 12ms (Views: 0.2ms | ActiveRecord: 1.4ms | Allocations: 3695)
+
+
+Started POST "/locations/1/temperatures" for ::1 at 2021-01-18 16:27:08 -0600
+Processing by TemperaturesController#create as */*
+  Parameters: {"temperature"=>{"average_high_f"=>"50", "average_low_f"=>"20"}, "location_id"=>"1"}
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/temperatures_controller.rb:21:in `create'
+  [1m[36mLocation Load (1.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/temperatures_controller.rb:21:in `create'
+  [1m[36mTemperature Create (13.0ms)[0m  [1m[32mINSERT INTO "temperatures" ("average_high_f", "average_low_f", "created_at", "updated_at", "location_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["average_high_f", 50], ["average_low_f", 20], ["created_at", "2021-01-18 22:27:09.135910"], ["updated_at", "2021-01-18 22:27:09.135910"], ["location_id", 1]]
+  ↳ app/controllers/temperatures_controller.rb:21:in `create'
+  [1m[35m (6.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/temperatures_controller.rb:21:in `create'
+Completed 201 Created in 70ms (Views: 1.2ms | ActiveRecord: 22.2ms | Allocations: 4144)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 16:27:19 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (0.9ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (1.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (1.6ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 15ms (Views: 0.2ms | ActiveRecord: 4.1ms | Allocations: 3809)
+
+
+Started DELETE "/temperatures/1" for ::1 at 2021-01-18 17:15:23 -0600
+  
+ActionController::RoutingError (No route matches [DELETE] "/temperatures/1"):
+  
+actionpack (6.0.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+railties (6.0.3.4) lib/rails/engine.rb:527:in `call'
+puma (4.3.7) lib/puma/configuration.rb:228:in `call'
+puma (4.3.7) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.7) lib/puma/server.rb:472:in `process_client'
+puma (4.3.7) lib/puma/server.rb:328:in `block in run'
+puma (4.3.7) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started POST "/locations/1/temperatures" for ::1 at 2021-01-18 17:16:29 -0600
+Processing by TemperaturesController#create as */*
+  Parameters: {"temperature"=>{"average_high_f"=>"80", "average_low_f"=>"33"}, "location_id"=>"1"}
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/temperatures_controller.rb:21:in `create'
+  [1m[36mLocation Load (1.1ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/temperatures_controller.rb:21:in `create'
+  [1m[36mTemperature Create (5.8ms)[0m  [1m[32mINSERT INTO "temperatures" ("average_high_f", "average_low_f", "created_at", "updated_at", "location_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["average_high_f", 80], ["average_low_f", 33], ["created_at", "2021-01-18 23:16:29.863202"], ["updated_at", "2021-01-18 23:16:29.863202"], ["location_id", 1]]
+  ↳ app/controllers/temperatures_controller.rb:21:in `create'
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/temperatures_controller.rb:21:in `create'
+Completed 201 Created in 61ms (Views: 0.9ms | ActiveRecord: 9.8ms | Allocations: 3844)
+
+
+Started GET "/locations" for ::1 at 2021-01-18 17:16:45 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (0.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.8ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.6ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 45ms (Views: 0.2ms | ActiveRecord: 2.0ms | Allocations: 3942)
+
+
+Started GET "/locations" for ::1 at 2021-01-19 08:27:19 -0600
+  [1m[35m (10.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by LocationsController#index as HTML
+  [1m[36mLocation Load (1.0ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (1.1ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 105ms (Views: 0.2ms | ActiveRecord: 28.6ms | Allocations: 16501)
+
+
+Started GET "/locations" for ::1 at 2021-01-19 08:27:40 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (1.2ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (2.9ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (3.7ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 18ms (Views: 0.2ms | ActiveRecord: 7.8ms | Allocations: 3943)
+
+
+Started DELETE "/temperatures/7" for ::1 at 2021-01-19 08:30:48 -0600
+  
+ActionController::RoutingError (No route matches [DELETE] "/temperatures/7"):
+  
+actionpack (6.0.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+railties (6.0.3.4) lib/rails/engine.rb:527:in `call'
+puma (4.3.7) lib/puma/configuration.rb:228:in `call'
+puma (4.3.7) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.7) lib/puma/server.rb:472:in `process_client'
+puma (4.3.7) lib/puma/server.rb:328:in `block in run'
+puma (4.3.7) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started DELETE "/temperatures/7" for ::1 at 2021-01-19 08:31:32 -0600
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [DELETE] "/temperatures/7"):
+  
+actionpack (6.0.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+railties (6.0.3.4) lib/rails/engine.rb:527:in `call'
+puma (4.3.7) lib/puma/configuration.rb:228:in `call'
+puma (4.3.7) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.7) lib/puma/server.rb:472:in `process_client'
+puma (4.3.7) lib/puma/server.rb:328:in `block in run'
+puma (4.3.7) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started PUT "/temperatures/7" for ::1 at 2021-01-19 08:32:52 -0600
+Processing by TemperaturesController#update as */*
+  Parameters: {"temperature"=>{"average_high_f"=>"80", "average_low_f"=>"33"}, "id"=>"7"}
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 582)
+
+
+  
+NoMethodError (undefined method `update' for nil:NilClass):
+  
+app/controllers/temperatures_controller.rb:30:in `update'
+Started PUT "/temperatures/7" for ::1 at 2021-01-19 08:34:15 -0600
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TemperaturesController#update as */*
+  Parameters: {"temperature"=>{"average_high_f"=>"80", "average_low_f"=>"33"}, "id"=>"7"}
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 0.0ms | Allocations: 581)
+
+
+  
+NoMethodError (undefined method `update' for nil:NilClass):
+  
+app/controllers/temperatures_controller.rb:30:in `update'
+Started PATCH "/temperatures/7" for ::1 at 2021-01-19 08:35:25 -0600
+Processing by TemperaturesController#update as */*
+  Parameters: {"temperature"=>{"average_high_f"=>"80", "average_low_f"=>"33"}, "id"=>"7"}
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 0.0ms | Allocations: 525)
+
+
+  
+NoMethodError (undefined method `update' for nil:NilClass):
+  
+app/controllers/temperatures_controller.rb:30:in `update'
+Started DELETE "/temperatures/7" for ::1 at 2021-01-19 08:35:57 -0600
+Processing by TemperaturesController#destroy as */*
+  Parameters: {"temperature"=>{"average_high_f"=>"80", "average_low_f"=>"33"}, "id"=>"7"}
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms | Allocations: 481)
+
+
+  
+NoMethodError (undefined method `destroy' for nil:NilClass):
+  
+app/controllers/temperatures_controller.rb:39:in `destroy'
+Started DELETE "/temperatures/7" for ::1 at 2021-01-19 08:36:18 -0600
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TemperaturesController#destroy as */*
+  Parameters: {"temperature"=>{"average_high_f"=>"80", "average_low_f"=>"33"}, "id"=>"7"}
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms | Allocations: 515)
+
+
+  
+NoMethodError (undefined method `destroy' for nil:NilClass):
+  
+app/controllers/temperatures_controller.rb:39:in `destroy'
+Started GET "/locations" for ::1 at 2021-01-19 08:37:03 -0600
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by LocationsController#index as HTML
+  [1m[36mLocation Load (4.9ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.7ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.7ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 242ms (Views: 4.4ms | ActiveRecord: 27.4ms | Allocations: 16498)
+
+
+Started GET "/temperatures/7" for ::1 at 2021-01-19 08:37:12 -0600
+Processing by TemperaturesController#show as HTML
+  Parameters: {"id"=>"7"}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 83)
+
+
+Started GET "/temperatures/10" for ::1 at 2021-01-19 08:37:39 -0600
+Processing by TemperaturesController#show as HTML
+  Parameters: {"id"=>"10"}
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms | Allocations: 67)
+
+
+Started GET "/temperatures/10" for ::1 at 2021-01-19 08:39:47 -0600
+Processing by TemperaturesController#show as HTML
+  Parameters: {"id"=>"10"}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 94)
+
+
+Started GET "/temperatures/10" for ::1 at 2021-01-19 08:40:05 -0600
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TemperaturesController#show as HTML
+  Parameters: {"id"=>"10"}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 144)
+
+
+Started GET "/temperatures" for ::1 at 2021-01-19 08:40:10 -0600
+Processing by TemperaturesController#index as HTML
+  [1m[36mTemperature Load (2.6ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures"[0m
+  ↳ app/controllers/temperatures_controller.rb:7:in `index'
+Completed 200 OK in 70ms (Views: 39.1ms | ActiveRecord: 25.8ms | Allocations: 7237)
+
+
+Started GET "/temperatures/10" for ::1 at 2021-01-19 08:40:25 -0600
+Processing by TemperaturesController#show as HTML
+  Parameters: {"id"=>"10"}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 68)
+
+
+Started GET "/temperatures/1" for ::1 at 2021-01-19 08:40:29 -0600
+Processing by TemperaturesController#show as HTML
+  Parameters: {"id"=>"1"}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 68)
+
+
+Started GET "/temperatures/1" for ::1 at 2021-01-19 08:40:56 -0600
+Processing by TemperaturesController#show as HTML
+  Parameters: {"id"=>"1"}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 93)
+
+
+Started GET "/locations/2" for ::1 at 2021-01-19 08:41:44 -0600
+Processing by LocationsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mLocation Load (1.7ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 142ms (Views: 0.1ms | ActiveRecord: 33.1ms | Allocations: 13752)
+
+
+Started GET "/locations/2/temperatures/1" for ::1 at 2021-01-19 08:41:53 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/locations/2/temperatures/1"):
+  
+actionpack (6.0.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+railties (6.0.3.4) lib/rails/engine.rb:527:in `call'
+puma (4.3.7) lib/puma/configuration.rb:228:in `call'
+puma (4.3.7) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.7) lib/puma/server.rb:472:in `process_client'
+puma (4.3.7) lib/puma/server.rb:328:in `block in run'
+puma (4.3.7) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/temperatures" for ::1 at 2021-01-19 08:42:02 -0600
+Processing by TemperaturesController#index as HTML
+  [1m[36mTemperature Load (0.6ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures"[0m
+  ↳ app/controllers/temperatures_controller.rb:7:in `index'
+Completed 200 OK in 133ms (Views: 131.8ms | ActiveRecord: 0.6ms | Allocations: 2068)
+
+
+Started GET "/temperatures/1" for ::1 at 2021-01-19 08:42:14 -0600
+Processing by TemperaturesController#show as HTML
+  Parameters: {"id"=>"1"}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 66)
+
+
+Started GET "/locations" for ::1 at 2021-01-19 08:42:25 -0600
+Processing by LocationsController#index as HTML
+  [1m[36mLocation Load (0.7ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (1.8ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (1.9ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 21ms (Views: 0.2ms | ActiveRecord: 4.4ms | Allocations: 3939)
+
+
+Started GET "/locations/1" for ::1 at 2021-01-19 08:42:36 -0600
+Processing by LocationsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mLocation Load (0.5ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 1.0ms | Allocations: 2615)
+
+
+Started GET "/temperatures/1" for ::1 at 2021-01-19 08:43:14 -0600
+Processing by TemperaturesController#show as HTML
+  Parameters: {"id"=>"1"}
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 65)
+
+
+Started GET "/temperatures" for ::1 at 2021-01-19 08:43:17 -0600
+Processing by TemperaturesController#index as HTML
+  [1m[36mTemperature Load (0.6ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures"[0m
+  ↳ app/controllers/temperatures_controller.rb:7:in `index'
+Completed 200 OK in 7ms (Views: 5.8ms | ActiveRecord: 0.6ms | Allocations: 2031)
+
+
+Started GET "/temperatures/1" for ::1 at 2021-01-19 08:44:54 -0600
+Processing by TemperaturesController#show as HTML
+  Parameters: {"id"=>"1"}
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 91)
+
+
+  [1m[36mTemperature Load (0.7ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Started GET "/locations/2" for ::1 at 2021-01-19 08:46:46 -0600
+Processing by LocationsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mLocation Load (2.4ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/locations_controller.rb:45:in `set_location'
+  [1m[36mTemperature Load (0.9ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:14:in `show'
+Completed 200 OK in 130ms (Views: 0.2ms | ActiveRecord: 48.3ms | Allocations: 11276)
+
+
+Started GET "/temperatures/1" for ::1 at 2021-01-19 08:48:08 -0600
+Processing by TemperaturesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemperature Load (0.5ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/temperatures_controller.rb:46:in `set_temperature'
+Completed 200 OK in 32ms (Views: 0.3ms | ActiveRecord: 9.3ms | Allocations: 5360)
+
+
+Started DELETE "/temperatures/7" for ::1 at 2021-01-19 08:48:44 -0600
+Processing by TemperaturesController#destroy as */*
+  Parameters: {"temperature"=>{"average_high_f"=>"80", "average_low_f"=>"33"}, "id"=>"7"}
+  [1m[36mTemperature Load (1.3ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/temperatures_controller.rb:46:in `set_temperature'
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/temperatures_controller.rb:40:in `destroy'
+  [1m[36mTemperature Destroy (11.2ms)[0m  [1m[31mDELETE FROM "temperatures" WHERE "temperatures"."id" = $1[0m  [["id", 7]]
+  ↳ app/controllers/temperatures_controller.rb:40:in `destroy'
+  [1m[35m (19.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/temperatures_controller.rb:40:in `destroy'
+Completed 204 No Content in 223ms (ActiveRecord: 52.5ms | Allocations: 7086)
+
+
+Started GET "/temperatures/7" for ::1 at 2021-01-19 08:49:03 -0600
+Processing by TemperaturesController#show as */*
+  Parameters: {"temperature"=>{"average_high_f"=>"80", "average_low_f"=>"33"}, "id"=>"7"}
+  [1m[36mTemperature Load (5.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/temperatures_controller.rb:46:in `set_temperature'
+Completed 404 Not Found in 7ms (ActiveRecord: 5.4ms | Allocations: 664)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Temperature with 'id'=7):
+  
+app/controllers/temperatures_controller.rb:46:in `set_temperature'
+Started GET "/temperatures/10" for ::1 at 2021-01-19 08:49:09 -0600
+Processing by TemperaturesController#show as */*
+  Parameters: {"temperature"=>{"average_high_f"=>"80", "average_low_f"=>"33"}, "id"=>"10"}
+  [1m[36mTemperature Load (2.1ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/temperatures_controller.rb:46:in `set_temperature'
+Completed 200 OK in 4ms (Views: 0.4ms | ActiveRecord: 2.1ms | Allocations: 759)
+
+
+Started GET "/locations" for ::1 at 2021-01-19 08:49:17 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (1.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (1.8ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (1.8ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 51ms (Views: 0.1ms | ActiveRecord: 16.7ms | Allocations: 8640)
+
+
+Started GET "/locations" for ::1 at 2021-01-19 11:30:28 -0600
+Processing by LocationsController#index as HTML
+  [1m[36mLocation Load (2.8ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.7ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.6ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 30ms (Views: 1.2ms | ActiveRecord: 4.4ms | Allocations: 3928)
+
+
+Started GET "/locations" for ::1 at 2021-01-19 11:47:30 -0600
+Processing by LocationsController#index as */*
+  [1m[36mLocation Load (1.8ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (0.9ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 1]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+  [1m[36mTemperature Load (1.4ms)[0m  [1m[34mSELECT "temperatures".* FROM "temperatures" WHERE "temperatures"."location_id" = $1[0m  [["location_id", 2]]
+  ↳ app/controllers/locations_controller.rb:8:in `index'
+Completed 200 OK in 26ms (Views: 0.3ms | ActiveRecord: 4.4ms | Allocations: 3930)
+
+
